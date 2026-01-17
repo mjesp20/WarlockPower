@@ -1,0 +1,10 @@
+## Interface: 11200
+## Title: WarlockPower
+## Notes: Curse assignment helper for Warlocks
+## Author: Thaly
+## Version: 0.1
+## SavedVariables: WarlockPower_SavedCurse
+
+
+WarlockPower.lua
+WarlockPower.xml
