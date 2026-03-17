@@ -6,7 +6,21 @@ WP_CurseList = {
     "Curse of Weakness",
     "Curse of Tongues",
 }
+-- Spell IDs for icon lookup
+WP_CurseSpellIDs = {
+    ["Curse of Recklessness"] = 11717,
+    ["Curse of Shadow"]       = 17937,
+    ["Curse of the Elements"] = 11722,
+    ["Curse of Weakness"]     = 702,
+    ["Curse of Tongues"]      = 11719,
+}
 
+function WarlockPower_GetCurseIcon(curseName)
+    local id = WP_CurseSpellIDs[curseName]
+    if not id then return "Interface\\Icons\\Temp" end
+    local _, _, icon = SpellInfo(id)
+    return icon
+end
 -- Assignment table: [warlockName] = curseIndex
 WP_Assignments = {}
 
@@ -118,7 +132,7 @@ function WarlockPower_BroadcastMyAssignment()
     if not myIndex then
         myIndex = WarlockPower_SavedCurse or 1
         WP_Assignments[playerName] = myIndex
-        WP_Curse = WP_CurseList[myIndex].."()"
+        WP_Curse = WP_CurseList[myIndex]
     end
     
     WarlockPower_SendAssign(playerName, myIndex)
@@ -194,7 +208,7 @@ function WarlockPower_CycleCurse(warlock)
 
     -- Update locally if this is YOU
     if warlock == UnitName("player") then
-        WP_Curse = WP_CurseList[index].."()"
+        WP_Curse = WP_CurseList[index]
         WarlockPower_SavedCurse = index  -- Save to persistent variable
         DEFAULT_CHAT_FRAME:AddMessage("WP: Your curse is now "..WP_CurseList[index])
     end
@@ -258,7 +272,7 @@ function WarlockPower_ParseMessage(prefix, msg, channel, sender)
 
     -- If THIS MESSAGE IS FOR YOU, update macro variable and save
     if name == playerName then
-        WP_Curse = WP_CurseList[index].."()"
+        WP_Curse = WP_CurseList[index]
         WarlockPower_SavedCurse = index  -- Save to persistent variable
         DEFAULT_CHAT_FRAME:AddMessage("WP: You have been assigned "..WP_CurseList[index])
     else
@@ -329,13 +343,13 @@ function WarlockPower_OnLoad()
     local playerName = UnitName("player")
     if WarlockPower_SavedCurse then
         WP_Assignments[playerName] = WarlockPower_SavedCurse
-        WP_Curse = WP_CurseList[WarlockPower_SavedCurse].."()"
+        WP_Curse = WP_CurseList[WarlockPower_SavedCurse]
         DEFAULT_CHAT_FRAME:AddMessage("WP: Loaded saved curse: "..WP_CurseList[WarlockPower_SavedCurse])
     else
         -- Initialize with default curse
         WarlockPower_SavedCurse = 1
         WP_Assignments[playerName] = 1
-        WP_Curse = WP_CurseList[1].."()"
+        WP_Curse = WP_CurseList[1]
     end
     
     DEFAULT_CHAT_FRAME:AddMessage("WP: Addon loaded successfully!")
