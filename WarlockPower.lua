@@ -167,7 +167,7 @@ function WarlockPower_ParseMessage(prefix, msg, channel, sender)
         if aName == playerName then
             WP_Curse = WP_CurseList[index]
             WarlockPower_SavedCurse = index
-            DEFAULT_CHAT_FRAME:AddMessage("WP: You have been assigned "..WP_CurseList[index])
+            --DEFAULT_CHAT_FRAME:AddMessage("WP: You have been assigned "..WP_CurseList[index])
         end
 
         WarlockPower_UpdateWarlocks()
@@ -189,7 +189,7 @@ function WarlockPower_CycleCurse(warlock)
     if warlock == UnitName("player") then
         WP_Curse = WP_CurseList[index]
         WarlockPower_SavedCurse = index
-        DEFAULT_CHAT_FRAME:AddMessage("WP: Your curse is now "..WP_CurseList[index])
+        --DEFAULT_CHAT_FRAME:AddMessage("WP: Your curse is now "..WP_CurseList[index])
     end
 
     WarlockPower_SendAssign(warlock, index)
